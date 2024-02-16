@@ -5,6 +5,7 @@ const ProtectedRoute = (req,res ,next) =>{
     const cookie = req.cookies["jwt"];
     const data = verify(cookie , secretKey)
     if (!data) {
+        res.locals.user = null,
         res.sendStatus(403)
         return;
     }

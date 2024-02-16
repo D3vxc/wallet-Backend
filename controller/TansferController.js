@@ -1,61 +1,31 @@
 const {
-  SCreateTransfer,
-  SGetTransfer,
-  SGetTransferById,
-  SUpdateTransfer,
-  SDeleteTransfer,
+  ServicesCreateTransfer,
+  ServicesGetTransfer,
 } = require("../services/TranferServices");
 
-const CCreateTransfer = async (req, res) => {
+const ControllerCreateTransfer = async (req, res) => {
+  console.log(req.body);
   try {
-    const CreateTransfer = await SCreateTransfer(req.body);
+    const CreateTransfer = await ServicesCreateTransfer(
+      req.body
+      // "63bfe20fd856c82aedfec83f"
+      // res.locals.user.id
+    );
     res.send(CreateTransfer);
   } catch (error) {
-    res.send(error);
+    res.status(403).send(error);
   }
 };
-
-const CGetTransfer = async (req, res) => {
+const ControllerGetTransfer = async (req, res) => {
   try {
-    const GetTransfer = await SGetTransfer();
-    res.send(GetTransfer);
+    const CreateTransfer = await ServicesGetTransfer();
+    res.send(CreateTransfer);
   } catch (error) {
-    res.send(error);
-  }
-};
-
-const CGetTransferById = async (req, res) => {
-  // console.log(req.params.id,"------> this");
-  try {
-    const GetTransferById = await SGetTransferById(req.params.id);
-    res.send(GetTransferById);
-  } catch (error) {
-    res.send(error);
-  }
-};
-
-const CUpdateTransfer = async (req, res) => {
-  try {
-    const UpdateTransfer = await SUpdateTransfer(req.params.id, req.body);
-    res.send(UpdateTransfer);
-  } catch (error) {
-    res.send(error);
-  }
-};
-
-const CDeleteTransfer = async (req, res) => {
-  try {
-    const DeleteTransfer = await SDeleteTransfer(req.params.id);
-    res.send(DeleteTransfer);
-  } catch (error) {
-    res.send(error);
+    res.status(403).send(error);
   }
 };
 
 module.exports = {
-  CCreateTransfer,
-  CGetTransfer,
-  CGetTransferById,
-  CUpdateTransfer,
-  CDeleteTransfer,
+  ControllerCreateTransfer,
+  ControllerGetTransfer,
 };

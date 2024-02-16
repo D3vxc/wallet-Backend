@@ -1,16 +1,24 @@
-const UserModel = require("../models/User")
+const { ObjectId } = require("mongodb");
+const UserModel = require("../models/User");
+const Wallet = require("../models/Wallet");
+const { randomUUID } = require("crypto");
 
-const SCreateUser = async (data) =>{
+const ServicesCreateUser = async (data) =>{
     try {
-        console.log(data)
+        console.log("User Data",data)
         const AddUser = await UserModel.create(data);
+         await Wallet.create({
+            Amount:1000,
+            WalletAddress:randomUUID(), 
+            UserId:AddUser._id
+        })
         return AddUser;
     } catch (error) {
         return error;
     }
 }
 
-const SGetUser = async (data) =>{
+const ServicesGetUser = async (data) =>{
     try {
         const GetUser = await UserModel.find({});
         return GetUser;
@@ -19,7 +27,7 @@ const SGetUser = async (data) =>{
     }
 }
 
-const SGetUserById = async (id) =>{
+const ServicesGetUserById = async (id) =>{
     try {
         const GetUserById = await  UserModel.findById(id);
         return GetUserById;
@@ -28,10 +36,10 @@ const SGetUserById = async (id) =>{
     }
 }
 
-const SUpdateUser = async (id,data) =>{
+const ServicesUpdateUser = async (id,data) =>{
     try {
         const UpdateUser = await UserModel.findByIdAndUpdate(
-            { _id: id },
+            { _id: ObjectId(id) },
             { $set: data },
             { new: false },
         );
@@ -41,7 +49,7 @@ const SUpdateUser = async (id,data) =>{
     }
 }
 
-const SDeleteUser  = async (id) =>{
+const ServicesDeleteUser  = async (id) =>{
     try {
         const DeleteUser = await UserModel.findByIdAndRemove(id);
         return  DeleteUser;
@@ -50,4 +58,4 @@ const SDeleteUser  = async (id) =>{
     }
 }
 
-module.exports = { SCreateUser, SGetUser,SGetUserById, SUpdateUser, SDeleteUser }
+module.exports = { ServicesCreateUser, ServicesGetUser,ServicesGetUserById, ServicesUpdateUser, ServicesDeleteUser }

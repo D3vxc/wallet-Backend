@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const WalletSchema = new mongoose.Schema(
     {
         WalletAddress: {type: String},
-        Amount: {type: Number,default:500},
+        Amount: {type: Number},
         UserId: {type: String}
     },{timestamps: true});
 

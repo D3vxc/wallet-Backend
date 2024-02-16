@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "proxy":"http://localhost:5173",
+  "proxy": "http://localhost:5173",
   "scripts": {
+    "build": "bable index.js -d build",
     "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -23,5 +24,10 @@
     "node": "^19.3.0",
     "nodemon": "^2.0.20",
     "validators": "^0.3.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.20.7",
+    "@babel/core": "^7.20.12",
+    "@babel/preset-env": "^7.20.2"
   }
 }
